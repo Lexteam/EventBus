@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath 'gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.12.1'
+    }
+}
+
+plugins {
+    id 'java'
+
+    id 'eclipse'
+    id 'idea'
+}
+apply plugin: 'com.github.hierynomus.license'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+group = 'uk.jamierocks'
+version = '1.0-SNAPSHOT'
+description = "EventBus - Somewhat performant event-bus used in Lexteam projects."
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.guava:guava:18.0'
+}
+
+license {
+    header file('HEADER.txt')
+    include '**/*.java'
+    include '**/*.groovy'
+
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.8'
+}

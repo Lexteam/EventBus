@@ -12,6 +12,8 @@ buildscript {
 plugins {
     id 'java'
 
+    id 'maven-publish'
+
     id 'eclipse'
     id 'idea'
 }
@@ -41,6 +43,21 @@ license {
     strictCheck true
     mapping {
         java = 'SLASHSTAR_STYLE'
+    }
+}
+
+publishing {
+    publications {
+        mavenJar(MavenPublication) {
+            artifactId archivesBaseName.toLowerCase()
+
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = System.getenv('REPO_GLOBAL') ?: "$buildDir/repo"
+        }
     }
 }
 

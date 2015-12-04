@@ -1,9 +1,9 @@
 plugins {
     id 'java'
-    id 'maven-publish'
+    id 'maven'
 
-    id 'eclipse'
     id 'idea'
+    id 'eclipse'
 
     id 'com.github.hierynomus.license' version '0.11.0'
 }
@@ -15,6 +15,7 @@ targetCompatibility = 1.8
 group = 'uk.jamierocks'
 version = '1.0'
 description = "EventBus - Somewhat performant event-bus used in Lexteam projects."
+ext.url = 'http://lexteam.jamierocks.uk/'
 
 repositories {
     mavenLocal()
@@ -36,17 +37,55 @@ license {
     }
 }
 
-publishing {
-    publications {
-        mavenJar(MavenPublication) {
-            artifactId archivesBaseName.toLowerCase()
+task javadocJar(type: Jar, dependsOn: 'javadoc') {
+    from javadoc.destinationDir
+    classifier = 'javadoc'
+}
 
-            from components.java
-        }
-    }
+task sourcesJar(type: Jar, dependsOn: 'classes') {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+uploadArchives {
     repositories {
-        maven {
-            url = System.getenv('REPO_GLOBAL') ?: "$buildDir/repo"
+        mavenDeployer {
+            repository(url: "file://" + (System.getenv('REPO_GLOBAL') ?: "$buildDir/repo"))
+
+            pom {
+                artifactId = project.archivesBaseName.toLowerCase()
+
+                project {
+                    name = project.archivesBaseName
+                    description = project.description
+                    packaging = 'jar'
+                    url = project.url
+
+                    scm {
+                        url = "https://github.com/Lexteam/EventBus"
+                        connection = "scm:git:https://github.com/Lexteam/EventBus.git"
+                        developerConnection = "scm:git:git@github.com:Lexteam/EventBus.git"
+                    }
+
+                    issueManagement {
+                        system = 'GitHub'
+                        url = 'https://github.com/Lexteam/EventBus/issues'
+                    }
+
+                    licenses {
+                        license {
+                            name = 'MIT License'
+                            url = 'http://opensource.org/licenses/MIT'
+                            distribution = 'repo'
+                        }
+                    }
+                }
+            }
         }
     }
 }

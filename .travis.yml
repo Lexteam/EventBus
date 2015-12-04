@@ -11,7 +11,7 @@ env:
     - secure: "Jc8Gh2W2dEvIi/iaMDXy1N6LMu9IEZso4VVDV6c343+j4O4exvZ1bqnyl9jINWwtULe58cVQPx0AFNnptL0Pv4ghKjQuBY9TK1ahZlLyFVQZ1r/5TPCQGiOsZq/3yHXugzWWc5Uqj44tf0Y6f/4UbNZVRarF3XW75iiqwdj2WvGwIOa19UIM0fe+K42ozYRs4LcY65XC2tZk7tL30su7GEVbGeGTVL48UBtTjcvOzPkzEjP9Pw4eey7bcHho2AiZ29XFCqOMt1flfLluHgdtlzdanLp4ov5yn89FExNGLi5rtyXBMgkmT5S/gOHTZXFRU+P7VvwIN5E6SwOkauhr6nrFmftIwcd8xFEghLwCXfR90p3Drz53blVR5devVRXqieV9Ktic/HAVDCap9DNDxgmnmyUgEKEsQF8CglqE3EY3WKoTqjGOMadnGX5iihIxJMW2PVi+iL0DuHrRrBmfi7O+JHrvCvElv5RX/J1Pfzehwz5a5LPYYsq39K3BFc9D61QJ3WZ3V4csiN3d+KiOBC8JFMKlVeb9xxiap6FBgrghiVjCV+60M7pZ9HTTaXtWqjseR2uoBeC3QlDa2xS1C6yYC9fVQQpVG7aL8yjmbL8m0QsNRllNa1oDulK0yPy7MQUeDHbF8zzKsy+47aPjQdTK8ZGDU+3j+c7WPlWgEM4="
 
 after_success:
-  - git clone $LEX_DEPLOY $DEPLOY_ROOT && $DEPLOY_ROOT/maven_repo "gradle publish"
+  - git clone $LEX_DEPLOY $DEPLOY_ROOT && $DEPLOY_ROOT/maven_repo "gradle uploadArchives"
 
 notifications:
   email: false

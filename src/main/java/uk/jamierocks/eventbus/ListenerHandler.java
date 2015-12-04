@@ -49,7 +49,7 @@ public class ListenerHandler implements IDedicatedListener {
      * @return the instantiated class.
      */
     public Object getInstance() {
-        return instance;
+        return this.instance;
     }
 
     /**
@@ -58,7 +58,7 @@ public class ListenerHandler implements IDedicatedListener {
      * @return the method.
      */
     public Method getMethod() {
-        return method;
+        return this.method;
     }
 
     /**
@@ -68,7 +68,7 @@ public class ListenerHandler implements IDedicatedListener {
      */
     @Override
     public void process(Object event) {
-        if (getHandles().isAssignableFrom(event.getClass())) {
+        if (this.getHandles().isAssignableFrom(event.getClass())) {
             try {
                 this.method.invoke(this.instance, event);
             } catch (InvocationTargetException e) {

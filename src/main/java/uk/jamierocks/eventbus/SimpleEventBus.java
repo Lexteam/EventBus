@@ -72,7 +72,7 @@ public class SimpleEventBus implements IEventBus {
      */
     @Override
     public void post(Object event) {
-        for (IDedicatedListener listener : handlers.get(event.getClass())) {
+        for (IDedicatedListener listener : this.handlers.get(event.getClass())) {
             listener.process(event);
         }
     }

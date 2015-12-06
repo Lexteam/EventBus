@@ -23,11 +23,18 @@
  */
 package uk.jamierocks.eventbus;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * Represents an event listener.
  *
  * @author Jamie Mansfield
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
 public @interface Listener {
 
 }

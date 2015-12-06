@@ -23,10 +23,9 @@
  */
 package uk.jamierocks.eventbus;
 
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -40,7 +39,7 @@ public class SimpleEventBus implements IEventBus {
     private Map<Class, Set<IDedicatedListener>> handlers;
 
     public SimpleEventBus() {
-        this.handlers = Maps.newHashMap();
+        this.handlers = new HashMap<>();
     }
 
     /**
@@ -51,7 +50,7 @@ public class SimpleEventBus implements IEventBus {
         if (listener instanceof IDedicatedListener) {
             IDedicatedListener dedicatedListener = (IDedicatedListener) listener;
             Set<IDedicatedListener> listeners =
-                    this.handlers.getOrDefault(dedicatedListener.getHandles(), Sets.newHashSet());
+                    this.handlers.getOrDefault(dedicatedListener.getHandles(), new HashSet<>());
             listeners.add(dedicatedListener);
             this.handlers.put(dedicatedListener.getHandles(), listeners);
         } else {
@@ -59,7 +58,7 @@ public class SimpleEventBus implements IEventBus {
                 if (m.getAnnotation(Listener.class) != null && m.getParameterCount() == 1) {
                     ListenerHandler handler = new ListenerHandler(listener, m);
                     Set<IDedicatedListener> listeners =
-                            this.handlers.getOrDefault(handler.getHandles(), Sets.newHashSet());
+                            this.handlers.getOrDefault(handler.getHandles(), new HashSet<>());
                     listeners.add(handler);
                     this.handlers.put(handler.getHandles(), listeners);
                 }

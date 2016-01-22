@@ -21,20 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.eventbus;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package xyz.lexteam.eventbus;
 
 /**
- * Represents an event listener.
+ * The event bus interface.
  *
  * @author Jamie Mansfield
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Listener {
+public interface IEventBus {
 
+    /**
+     * Registers the specified event listener.
+     *
+     * @param listener the event listener.
+     */
+    void registerListener(Object listener);
+
+    /**
+     * Posts the specified event.
+     * This means all the event listeners listening to this event will be invoked.
+     *
+     * @param event the specified event.
+     */
+    void post(Object event);
 }

@@ -21,28 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.eventbus;
+package xyz.lexteam.eventbus;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Represents a 'dedicated listener'.
- * This is a type of listener which listens only on one event.
+ * Represents an event listener.
  *
- * @param <T> this is the type of which the event is.
  * @author Jamie Mansfield
  */
-public interface IDedicatedListener<T> {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Listener {
 
-    /**
-     * Processes the given event.
-     *
-     * @param event the event.
-     */
-    void process(T event);
-
-    /**
-     * Gets the type that this 'dedicated listener' listens for.
-     *
-     * @return the type of event.
-     */
-    Class<T> getHandles();
 }

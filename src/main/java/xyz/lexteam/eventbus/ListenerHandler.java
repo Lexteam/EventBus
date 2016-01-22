@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.eventbus;
+package xyz.lexteam.eventbus;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

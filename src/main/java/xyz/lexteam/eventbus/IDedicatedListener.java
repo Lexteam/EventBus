@@ -21,27 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.eventbus;
+package xyz.lexteam.eventbus;
 
 /**
- * The event bus interface.
+ * Represents a 'dedicated listener'.
+ * This is a type of listener which listens only on one event.
  *
+ * @param <T> this is the type of which the event is.
  * @author Jamie Mansfield
  */
-public interface IEventBus {
+public interface IDedicatedListener<T> {
 
     /**
-     * Registers the specified event listener.
+     * Processes the given event.
      *
-     * @param listener the event listener.
+     * @param event the event.
      */
-    void registerListener(Object listener);
+    void process(T event);
 
     /**
-     * Posts the specified event.
-     * This means all the event listeners listening to this event will be invoked.
+     * Gets the type that this 'dedicated listener' listens for.
      *
-     * @param event the specified event.
+     * @return the type of event.
      */
-    void post(Object event);
+    Class<T> getHandles();
 }

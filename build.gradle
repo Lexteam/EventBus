@@ -7,6 +7,7 @@ plugins {
 
     id 'com.github.hierynomus.license' version '0.11.0'
 }
+
 defaultTasks 'clean', 'licenseFormat'
 
 sourceCompatibility = 1.8
@@ -53,7 +54,10 @@ artifacts {
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "file://" + (System.getenv('REPO_GLOBAL') ?: "$buildDir/repo"))
+            repository(url: 'http://lex1.lexteam.xyz:8888/repository/'
+                    + (version.endsWith('-SNAPSHOT') ? 'snapshots' : 'internal') + '/') {
+                authentication(userName: project.lexRepoUser, password: project.lexRepoPass)
+            }
 
             pom {
                 artifactId = project.archivesBaseName.toLowerCase()

@@ -1,6 +1,8 @@
 plugins {
     id 'java'
+
     id 'maven'
+    id 'signing'
 
     id 'idea'
     id 'eclipse'
@@ -51,12 +53,26 @@ artifacts {
     archives sourcesJar
 }
 
+signing {
+    sign configurations.archives
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
             repository(url: 'http://lex1.lexteam.xyz:8888/repository/'
                     + (version.endsWith('-SNAPSHOT') ? 'snapshots' : 'internal') + '/') {
-                authentication(userName: project.lexRepoUser, password: project.lexRepoPass)
+                authentication(userName: lexRepoUser, password: lexRepoPass)
+            }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
             }
 
             pom {
@@ -84,6 +100,14 @@ uploadArchives {
                             name = 'MIT License'
                             url = 'http://opensource.org/licenses/MIT'
                             distribution = 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'jamierocks'
+                            name 'Jamie Mansfield'
+                            email 'dev@jamierocks.uk'
                         }
                     }
                 }

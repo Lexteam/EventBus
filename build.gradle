@@ -17,8 +17,8 @@ targetCompatibility = 1.8
 
 group = 'xyz.lexteam'
 version = '1.4-SNAPSHOT'
-description = "EventBus - Somewhat performant event-bus used in Lexteam projects."
-ext.url = 'http://lexteam.jamierocks.uk/'
+description = "EventBus - Somewhat performant event bus used in Lexteam projects."
+ext.url = 'http://www.lexteam.xyz/'
 
 repositories {
     mavenCentral()
@@ -62,16 +62,21 @@ uploadArchives {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-            repository(url: 'http://lex1.lexteam.xyz:8888/repository/'
-                    + (version.endsWith('-SNAPSHOT') ? 'snapshots' : 'internal') + '/') {
+            // Lexteam Maven Repository
+            repository(url: 'http://lex1.lexteam.xyz:8888/repository/internal/') {
                 authentication(userName: lexRepoUser, password: lexRepoPass)
             }
 
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+            snapshotRepository(url: 'http://lex1.lexteam.xyz:8888/repository/snapshots/') {
+                authentication(userName: lexRepoUser, password: lexRepoPass)
+            }
+
+            // Maven Central
+            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
                 authentication(userName: ossrhUsername, password: ossrhPassword)
             }
 
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+            snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
                 authentication(userName: ossrhUsername, password: ossrhPassword)
             }
 
@@ -85,9 +90,9 @@ uploadArchives {
                     url = project.url
 
                     scm {
-                        url = "https://github.com/Lexteam/EventBus"
-                        connection = "scm:git:https://github.com/Lexteam/EventBus.git"
-                        developerConnection = "scm:git:git@github.com:Lexteam/EventBus.git"
+                        url = 'https://github.com/Lexteam/EventBus'
+                        connection = 'scm:git:https://github.com/Lexteam/EventBus.git'
+                        developerConnection = 'scm:git:git@github.com:Lexteam/EventBus.git'
                     }
 
                     issueManagement {
@@ -117,5 +122,5 @@ uploadArchives {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.10'
+    gradleVersion = '2.11'
 }

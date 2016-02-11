@@ -1,4 +1,4 @@
-EventBus
+EventBus ![Maven Central](https://img.shields.io/maven-central/v/xyz.lexteam/eventbus.svg)
 ========
 
 EventBus is a lightweight performant event bus for Java 1.8.

@@ -57,7 +57,7 @@ public class SimpleEventBus implements IEventBus {
             this.handlers.put(dedicatedListener.getHandles(), listeners);
             ClassListenerSet listenerSet = this.listeners.getOrDefault(listener.getClass(),
                     new ClassListenerSet());
-            listenerSet.addListener(dedicatedListener);
+            listenerSet.registerListener(dedicatedListener);
         } else {
             for (Method m : listener.getClass().getMethods()) {
                 if (m.getAnnotation(Listener.class) != null && m.getParameterCount() == 1) {
@@ -68,7 +68,7 @@ public class SimpleEventBus implements IEventBus {
                     this.handlers.put(handler.getHandles(), listeners);
                     ClassListenerSet listenerSet = this.listeners.getOrDefault(listener.getClass(),
                             new ClassListenerSet());
-                    listenerSet.addListener(handler);
+                    listenerSet.registerListener(handler);
                 }
             }
         }
@@ -84,5 +84,9 @@ public class SimpleEventBus implements IEventBus {
                 listener.process(event);
             }
         }
+    }
+
+    public ClassListenerSet getClassListener(Class listenerClass) {
+        return this.listeners.get(listenerClass);
     }
 }

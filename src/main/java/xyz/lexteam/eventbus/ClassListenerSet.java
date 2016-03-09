@@ -31,15 +31,21 @@ import java.util.Map;
  *
  * @author Jamie Mansfield
  */
-public class ClassListenerSet {
+public class ClassListenerSet implements IEventBus {
 
     private Map<Class<?>, IDedicatedListener> listeners = new HashMap<>();
 
-    public void addListener(IDedicatedListener listener) {
-        this.listeners.put(listener.getHandles(), listener);
+    @Override
+    public void registerListener(Object listener) {
+        if (listener instanceof IDedicatedListener) {
+            this.listeners.put(((IDedicatedListener) listener).getHandles(), (IDedicatedListener) listener);
+        }
     }
 
-    public IDedicatedListener get(Class<?> eventClass) {
-        return this.listeners.get(eventClass);
+    @Override
+    public void post(Object event) {
+        if (this.listeners.get(event.getClass()) != null) {
+            this.listeners.get(event.getClass()).process(event);
+        }
     }
 }

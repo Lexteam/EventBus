@@ -44,6 +44,4 @@ public interface IEventBus {
      * @param event the specified event.
      */
     void post(Object event);
-
-    ClassListenerSet getClassListener();
 }

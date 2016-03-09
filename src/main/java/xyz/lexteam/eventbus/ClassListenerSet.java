@@ -35,6 +35,9 @@ public class ClassListenerSet implements IEventBus {
 
     private Map<Class<?>, IDedicatedListener> listeners = new HashMap<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void registerListener(Object listener) {
         if (listener instanceof IDedicatedListener) {
@@ -42,6 +45,9 @@ public class ClassListenerSet implements IEventBus {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void post(Object event) {
         if (this.listeners.get(event.getClass()) != null) {

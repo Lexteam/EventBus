@@ -37,9 +37,11 @@ import java.util.Set;
 public class SimpleEventBus implements IEventBus {
 
     private Map<Class, Set<IDedicatedListener>> handlers;
+    private Map<Class, ClassListenerSet> listeners;
 
     public SimpleEventBus() {
         this.handlers = new HashMap<>();
+        this.listeners = new HashMap<>();
     }
 
     /**
@@ -53,6 +55,9 @@ public class SimpleEventBus implements IEventBus {
                     this.handlers.getOrDefault(dedicatedListener.getHandles(), new HashSet<>());
             listeners.add(dedicatedListener);
             this.handlers.put(dedicatedListener.getHandles(), listeners);
+            ClassListenerSet listenerSet = this.listeners.getOrDefault(listener.getClass(),
+                    new ClassListenerSet());
+            listenerSet.addListener(dedicatedListener);
         } else {
             for (Method m : listener.getClass().getMethods()) {
                 if (m.getAnnotation(Listener.class) != null && m.getParameterCount() == 1) {
@@ -61,6 +66,9 @@ public class SimpleEventBus implements IEventBus {
                             this.handlers.getOrDefault(handler.getHandles(), new HashSet<>());
                     listeners.add(handler);
                     this.handlers.put(handler.getHandles(), listeners);
+                    ClassListenerSet listenerSet = this.listeners.getOrDefault(listener.getClass(),
+                            new ClassListenerSet());
+                    listenerSet.addListener(handler);
                 }
             }
         }

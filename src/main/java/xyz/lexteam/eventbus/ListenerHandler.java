@@ -32,12 +32,12 @@ import java.lang.reflect.Method;
  *
  * @author Jamie Mansfield
  */
-class ListenerHandler implements IDedicatedListener {
+public class ListenerHandler implements IDedicatedListener {
 
     private final Object instance;
     private final Method method;
 
-    protected ListenerHandler(Object instance, Method method) {
+    public ListenerHandler(Object instance, Method method) {
         this.instance = instance;
         this.method = method;
     }
@@ -48,7 +48,7 @@ class ListenerHandler implements IDedicatedListener {
      *
      * @return the instantiated class.
      */
-    protected Object getInstance() {
+    public Object getInstance() {
         return this.instance;
     }
 
@@ -57,7 +57,7 @@ class ListenerHandler implements IDedicatedListener {
      *
      * @return the method.
      */
-    protected Method getMethod() {
+    public Method getMethod() {
         return this.method;
     }
 

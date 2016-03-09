@@ -23,27 +23,23 @@
  */
 package xyz.lexteam.eventbus;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * The event bus interface.
+ * Represents all the {@link IDedicatedListener}s in a class.
  *
  * @author Jamie Mansfield
  */
-public interface IEventBus {
+public class ClassListenerSet {
 
-    /**
-     * Registers the specified event listener.
-     *
-     * @param listener the event listener.
-     */
-    void registerListener(Object listener);
+    private Map<Class<?>, IDedicatedListener> listeners = new HashMap<>();
 
-    /**
-     * Posts the specified event.
-     * This means all the event listeners listening to this event will be invoked.
-     *
-     * @param event the specified event.
-     */
-    void post(Object event);
+    public void addListener(IDedicatedListener listener) {
+        this.listeners.put(listener.getHandles(), listener);
+    }
 
-    ClassListenerSet getClassListener();
+    public IDedicatedListener get(Class<?> eventClass) {
+        return this.listeners.get(eventClass);
+    }
 }

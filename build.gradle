@@ -16,7 +16,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 group = 'xyz.lexteam'
-version = '1.4'
+version = '1.5-SNAPSHOT'
 description = "EventBus - Somewhat performant event bus used in Lexteam projects."
 ext.url = 'https://www.lexteam.xyz/'
 
